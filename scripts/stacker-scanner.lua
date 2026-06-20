@@ -143,7 +143,7 @@ function rescan_all()
 	end
 
 	-- Query CS2 to find which are CS2 stations (returns nil for non-CS2 stops)
-	local result = remote.call("cybersyn2", "query", { type = "stops" })
+	local result = remote.call("cybersyn2", "query", { type = "stops", all = true })
 	local cs2_stops = result and result.data or {}
 
 	for _, stop in pairs(cs2_stops) do
