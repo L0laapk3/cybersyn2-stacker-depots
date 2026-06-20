@@ -1,0 +1,9 @@
+{
+  "name": "cybersyn2-stacker-depots",
+  "version": "0.0.1",
+  "title": "Cybersyn 2 - Stacker Depots Plugin",
+  "author": "L0laapk3",
+  "factorio_version": "2.0",
+  "dependencies": ["base >= 2.0.57", "cybersyn2 >= 0.1.6"],
+  "description": "A plugin for Cybersyn 2. Will prevent trains from getting called for orders if they cannot reach cs2 stations, such as when they are stuck in a depot stacker."
+}
