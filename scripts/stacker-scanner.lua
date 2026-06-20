@@ -1,4 +1,4 @@
-require("scripts.rail-util")
+require("scripts.rail-util.lua")
 
 local front = {} -- Not in storage: RailEnd userdata can't be serialized
 local debug_render = false
