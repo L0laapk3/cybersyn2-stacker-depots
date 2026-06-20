@@ -1,4 +1,4 @@
-require("scripts.rail-util.lua")
+require("scripts.rail-util")
 
 local front = {} -- Not in storage: RailEnd userdata can't be serialized
 local debug_render = false
@@ -69,7 +69,7 @@ end
 
 local processed = 0
 local function scan_tick()
-	local budget = 50
+	local budget = 5
 	while budget > 0 and next(front) do
 		budget = budget - 1
 		processed = processed + 1
