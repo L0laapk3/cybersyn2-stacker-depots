@@ -32,9 +32,6 @@ end
 
 
 local function taint_block(prev_re) -- assumes prev_re is at the beginning of a segment
-	local re2 = prev_re.make_copy()
-	re2.flip_direction()
-	storage.stacker_new_viable_segments[key(re2)] = true
 	prev_re.move_to_segment_end()
 	if debug_render then
 		local rails = prev_re.rail.get_rail_segment_rails(prev_re.direction)
@@ -60,6 +57,9 @@ local function taint_block(prev_re) -- assumes prev_re is at the beginning of a 
 			if reverse_signal and not forward_signal then
 				goto continue_dir
 			end
+			local re2 = re.make_copy()
+			re2.flip_direction()
+			storage.stacker_new_viable_segments[key(re2)] = true
 			taint_block(re)
 		end
 	::continue_dir::
@@ -81,7 +81,12 @@ local function scan_tick()
 				if re.move_forward(dir) then
 					local stop = re.rail.get_rail_segment_stop(flip(re.direction))
 					if stop then -- always end on a station: if it is depot should end for sure, if it is not depot it was already scanned anyway. (mark the station sections themselves as viable)
-						taint_block(re)
+						local re2 = re.make_copy()
+						re2.flip_direction()
+						if not storage.stacker_new_viable_segments[key(re2)] then
+							storage.stacker_new_viable_segments[key(re2)] = true
+							taint_block(re)
+						end
 					else
 						local forward_signal = get_signals_from_last_rail(re, prev_re, true)  -- forward = towards station
 						local reverse_signal = get_signals_from_last_rail(re, prev_re, false) -- reverse = how we're walking
