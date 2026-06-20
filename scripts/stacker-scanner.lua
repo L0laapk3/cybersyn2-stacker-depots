@@ -69,7 +69,7 @@ end
 
 local processed = 0
 local function scan_tick()
-	local budget = 5
+	local budget = settings.global["cybersyn2-stacker-depots-scan-budget"].value
 	while budget > 0 and next(front) do
 		budget = budget - 1
 		processed = processed + 1
